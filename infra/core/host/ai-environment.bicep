@@ -20,6 +20,8 @@ param openAiModelDeployments array = []
 param logAnalyticsName string = ''
 @description('The Application Insights resource name.')
 param applicationInsightsName string = ''
+@description('The Grafana name')
+param grafanaName string
 @description('The Container Registry resource name.')
 param containerRegistryName string = ''
 @description('The Azure Search resource name.')
@@ -41,6 +43,7 @@ module hubDependencies '../ai/hub-dependencies.bicep' = {
     storageAccountName: storageAccountName
     containerRegistryName: containerRegistryName
     applicationInsightsName: applicationInsightsName
+    grafanaName: grafanaName
     logAnalyticsName: logAnalyticsName
     openAiName: openAiName
     openAiModelDeployments: openAiModelDeployments
