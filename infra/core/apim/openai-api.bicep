@@ -7,6 +7,8 @@ param openAIAPIDisplayName string = 'OpenAI'
 param openAIAPIPath string = 'openai'
 param openAIAPIVersion string = '2024-02-01'
 param openAIAPISpecURL string = 'https://raw.githubusercontent.com/Azure/azure-rest-api-specs/main/specification/cognitiveservices/data-plane/AzureOpenAI/inference/stable/${openAIAPIVersion}/inference.json'
+param openAISubscriptionName string = 'openai-subscription'
+param openAISubscriptionDescription string = 'OpenAI Subscription'
 
 var policyXml = loadTextContent('policy.xml')
 var updatedPolicyXml = replace(policyXml, '{backend-id}', openAiName)
@@ -75,5 +77,16 @@ resource openAiBackend 'Microsoft.ApiManagement/service/backends@2024-06-01-prev
         }
       ]
     }
+  }
+}
+
+resource apimSubscription 'Microsoft.ApiManagement/service/subscriptions@2024-06-01-preview' = {
+  name: openAISubscriptionName
+  parent: apimService
+  properties: {
+    allowTracing: true
+    displayName: openAISubscriptionDescription
+    scope: '/apis/${api.id}'
+    state: 'active'
   }
 }

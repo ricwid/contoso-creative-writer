@@ -3,6 +3,11 @@ param applicationInsightsResourceId string
 @secure()
 param applicationInsightsConnectionString string
 
+var logSettings = {
+  headers: [ 'Content-type', 'User-agent', 'x-ms-region', 'x-ratelimit-remaining-tokens' , 'x-ratelimit-remaining-requests' ]
+  body: { bytes: 8192 }
+}
+
 resource logger 'Microsoft.ApiManagement/service/loggers@2022-08-01' = {
   name: '${apimName}/applicationinsights'
   properties: {
@@ -19,17 +24,21 @@ resource diagnostic 'Microsoft.ApiManagement/service/diagnostics@2022-08-01' = {
   properties: {
     loggerId: logger.id
     alwaysLog: 'allErrors'
+    httpCorrelationProtocol: 'W3C'
+    logClientIp: true
+    metrics: true
+    verbosity: 'verbose'
     sampling: {
       samplingType: 'fixed'
       percentage: 100
     }
     frontend: {
-      request: { headers: ['*'], body: { bytes: 512 } }
-      response: { headers: ['*'], body: { bytes: 512 } }
+      request: logSettings
+      response: logSettings
     }
     backend: {
-      request: { headers: ['*'], body: { bytes: 512 } }
-      response: { headers: ['*'], body: { bytes: 512 } }
+      request: logSettings
+      response: logSettings
     }
   }
 }
