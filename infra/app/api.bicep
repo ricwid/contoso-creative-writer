@@ -22,10 +22,11 @@ param appinsights_Connectionstring string
 param aiProjectName string
 param subscriptionId string
 param apimGatewayUrl string
+param bingApiEndpoint string
 
 @secure()
 param bingApiKey string
-param bingApiEndpoint string
+@secure()
 param apimSubscriptionKey string
 
 
