@@ -187,6 +187,8 @@ module apiContainerApp 'app/api.bicep' = {
     bingApiKey: ai.outputs.bingApiKey
     aiProjectName: ai.outputs.projectName
     subscriptionId: subscription().subscriptionId
+    apimGatewayUrl: apim.outputs.apimGatewayUrl
+    apimSubscriptionKey: openAIAPIModule.outputs.subscriptionPrimaryKey
   }
 }
 

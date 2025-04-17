@@ -90,3 +90,6 @@ resource apimSubscription 'Microsoft.ApiManagement/service/subscriptions@2024-06
     state: 'active'
   }
 }
+
+#disable-next-line outputs-should-not-contain-secrets
+output subscriptionPrimaryKey string = apimSubscription.listSecrets().primaryKey

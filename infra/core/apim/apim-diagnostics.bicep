@@ -4,7 +4,8 @@ param applicationInsightsResourceId string
 param applicationInsightsConnectionString string
 
 var logSettings = {
-  headers: [ 'Content-type', 'User-agent', 'x-ms-region', 'x-ratelimit-remaining-tokens' , 'x-ratelimit-remaining-requests' ]
+  headers: [ 
+    'Content-type', 'User-agent', 'x-ms-region', 'x-ratelimit-remaining-tokens' , 'x-ratelimit-remaining-requests', 'Ocp-Apim-Subscription-Name', 'Ocp-Apim-Subscription-Id', 'Ocp-Apim-Trace']
   body: { bytes: 8192 }
 }
 
