@@ -231,6 +231,7 @@ module apimDiagnostics 'core/apim/apim-diagnostics.bicep' = {
   params: {
     apimName: apim.outputs.apimName
     applicationInsightsResourceId: ai.outputs.applicationInsightsId
+    applicationInsightsConnectionString: ai.outputs.applicationInsightsConnectionString
   }
 }
 
@@ -240,6 +241,16 @@ module apiToApimRole 'core/security/role.bicep' = {
   params: {
     principalId: managedIdentity.outputs.managedIdentityPrincipalId 
     roleDefinitionId: '312a565d-c81f-4fd8-895a-4e21e48d571c' // API Management Service Contributor
+    principalType: 'ServicePrincipal'
+  }
+}
+
+module apimAppInsightsRole 'core/security/role.bicep' = {
+  name: 'apim-appinsights-role'
+  scope: resourceGroup
+  params: {
+    principalId: apim.outputs.apimPrincipalId
+    roleDefinitionId: '3913510d-42f4-4e42-8a64-420c390055eb' // Monitoring Metrics Publisher
     principalType: 'ServicePrincipal'
   }
 }
