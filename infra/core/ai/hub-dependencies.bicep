@@ -13,6 +13,8 @@ param openAiModelDeployments array = []
 param logAnalyticsName string = ''
 @description('Name of the Application Insights instance')
 param applicationInsightsName string = ''
+@description('The Grafana name')
+param grafanaName string = ''
 @description('Name of the container registry')
 param containerRegistryName string = ''
 @description('Name of the Azure Cognitive Search service')
@@ -116,6 +118,14 @@ module applicationInsights '../monitor/applicationinsights.bicep' =
       tags: tags
       name: applicationInsightsName
       logAnalyticsWorkspaceId: !empty(logAnalyticsName) ? logAnalytics.outputs.id : ''
+    }
+  }
+
+module grafana '../monitor/grafana.bicep' = 
+  if (!empty(grafanaName)) {
+    name: 'grafana'
+    params: {
+      grafanaName: grafanaName
     }
   }
 

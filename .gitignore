@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Jetbrains IDE
+.idea/
+
 # C extensions
 *.so
 
@@ -145,3 +148,13 @@ kustomize
 package-lock.json
 src/api/api/agents/writer/.promptflow/
 flow.flex.yaml
+
+# .NET
+[Bb]in/
+[Oo]bj/
+[Pp]ackages/
+*.suo
+*.user
+*.sln.docstates
+*.sln.ide/
+appsettings.local.json
